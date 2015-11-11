@@ -5,7 +5,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <h1>Webpack & React with Hot Reload!</h1>
+      <h1>It's Alive!</h1>
     )
   }
 

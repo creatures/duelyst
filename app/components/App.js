@@ -38,7 +38,7 @@ export default class App extends Component {
 
   renderCard(key) {
     const card = this.state.cards[key]
-    const className = "card--detail is-" + card.cardType
+    const className = "card--detail is-" + card.category
 
     return (
       <div key={key} className={className}>
@@ -57,7 +57,7 @@ export default class App extends Component {
             {card.name}
           </h5>
           <p className="type">
-            {card.race}
+            {card.type}
           </p>
           <p className={"rarity is-" + card.rarity}>
             {card.rarity}

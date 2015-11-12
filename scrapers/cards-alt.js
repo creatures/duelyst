@@ -11,6 +11,7 @@ function getCardsJSON() {
   for (i = 0; i < cards.length; i++) {
     attributes = cards[i].attributes
 
+    // Skip cards that belong to the training teacher
     if (attributes.factionId === 200) { continue }
 
     // Card
@@ -26,11 +27,11 @@ function getCardsJSON() {
     // No need yet, still need to figure out how to get assets
     // attributes._baseAnimResource
 
-    // Card Type
-    if (attributes.isArtifact) { card.cardType = "artifact" }
-    if (attributes.isSpell) { card.cardType = "spell" }
-    if (attributes.isTile) { card.cardType = "tile" }
-    if (attributes.isUnit) { card.cardType = "unit" }
+    // Category
+    if (attributes.isArtifact) { card.category = "artifact" }
+    if (attributes.isSpell) { card.category = "spell" }
+    if (attributes.isTile) { card.category = "tile" }
+    if (attributes.isUnit) { card.category = "unit" }
 
     // Description
     // Note: Spells have a description, Units do not
@@ -50,13 +51,7 @@ function getCardsJSON() {
     }
 
     // Race
-    if (attributes.raceName) {
-      card.race = attributes.raceName
-    } else if (attributes.isGeneral) {
-      card.race = "General"
-    } else {
-      card.race = "Minion"
-    }
+    card.race = attributes.raceName
 
     // Rarity
     card.rarity = attributes.rarityName
@@ -64,6 +59,20 @@ function getCardsJSON() {
 
     // Search
     card.searchableContent = attributes.searchableContent
+
+    // Type
+    if (attributes.raceName) {
+      card.type = attributes.raceName
+    } else if (attributes.isGeneral) {
+      card.type = "General"
+    } else if (attributes.isArtifact) {
+      card.type = "Artifact"
+    } else if (attributes.isSpell) {
+      card.type = "Spell"
+    } else {
+      card.type = "Minion"
+    }
+
 
     // Unit
     card.attack = attributes.atk
@@ -77,7 +86,7 @@ function getCardsJSON() {
     data.cards[card["id"]] = card
 
     console.log("-------------------------------")
-    console.log(card.name + " - " + card.cardType + " - " + card.id)
+    console.log(card.name + " - " + card.category + " - " + card.id)
     console.log(cards[i])
     console.log(card)
 

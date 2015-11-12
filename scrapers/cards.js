@@ -71,6 +71,9 @@ function GetCardsJSON() {
 
     console.log("-------------------------------")
     console.log(card.name + " - " + "Card Type" + " - " + card.id)
+    console.log("Artifact: " + SDK.CardType.getIsArtifactCardType(cards[i]))
+    console.log("Spell: " + SDK.CardType.getIsSpellCardType(cards[i]))
+    console.log("Unit: " + SDK.CardType.getIsUnitCardType(cards[i]))
     console.log(cards[i])
     console.log(card)
 

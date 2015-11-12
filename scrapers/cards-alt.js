@@ -1,6 +1,6 @@
 // Enter into the console to retrieve stringified JSON cards
 
-function GetCardsJSON() {
+function getCardsJSON() {
 
   console.log("-------------------------------")
   console.log("CARDS")
@@ -81,4 +81,5 @@ function GetCardsJSON() {
 
   return JSON.stringify(data);
 }
-copy(GetCardsJSON());
+
+copy(getCardsJSON());

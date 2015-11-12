@@ -11,11 +11,14 @@ function getCardsJSON() {
   for (i = 0; i < cards.length; i++) {
     attributes = cards[i].attributes
 
-    // Skip cards that belong to the training teacher
-    if (attributes.factionId === 200) { continue }
+    // Skip hidden cards
+    if (attributes.isHiddenInCollection) { continue }
 
     // Skip tokens
     if (attributes.rarityName === "Token") { continue }
+
+    // Skip cards that belong to the training teacher
+    if (attributes.factionId === 200) { continue }
 
     // Card
     card = {}
@@ -83,7 +86,7 @@ function getCardsJSON() {
     card.isGeneral = attributes.isGeneral
 
     // Visibility
-    card.isHidden = !!attributes.isHiddenInCollection
+    card.isHidden = attributes.isHiddenInCollection
 
     // Save
     data.cards[card["id"]] = card

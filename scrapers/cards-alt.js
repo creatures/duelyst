@@ -14,6 +14,9 @@ function getCardsJSON() {
     // Skip cards that belong to the training teacher
     if (attributes.factionId === 200) { continue }
 
+    // Skip tokens
+    if (attributes.rarityName === "Token") { continue }
+
     // Card
     card = {}
     card.animations = {}

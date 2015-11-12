@@ -27,10 +27,10 @@ function getCardsJSON() {
     // attributes._baseAnimResource
 
     // Card Type
-    if (attributes.isArtifact) { card.cardType = "Artifact" }
-    if (attributes.isSpell) { card.cardType = "Spell" }
-    if (attributes.isTile) { card.cardType = "Tile" }
-    if (attributes.isUnit) { card.cardType = "Unit" }
+    if (attributes.isArtifact) { card.cardType = "artifact" }
+    if (attributes.isSpell) { card.cardType = "spell" }
+    if (attributes.isTile) { card.cardType = "tile" }
+    if (attributes.isUnit) { card.cardType = "unit" }
 
     // Description
     // Note: Spells have a description, Units do not
@@ -39,6 +39,7 @@ function getCardsJSON() {
     // Faction
     card.faction = attributes.factionName
     card.factionId = attributes.factionId
+    card.factionSlug = card.faction.split(" ")[0].toLowerCase()
 
     // Keywords
     var keywords = attributes.keywordDescriptions
@@ -48,8 +49,14 @@ function getCardsJSON() {
       }
     }
 
-    // Races
-    card.race = attributes.raceName
+    // Race
+    if (attributes.raceName) {
+      card.race = attributes.raceName
+    } else if (attributes.isGeneral) {
+      card.race = "General"
+    } else {
+      card.race = "Minion"
+    }
 
     // Rarity
     card.rarity = attributes.rarityName

@@ -31,7 +31,14 @@ module.exports = {
         test: /\.styl$/,
         include: APP_PATH,
         loader: "style-loader!css-loader!stylus-loader"
+      },
+      {
+        test: /\.(png|jpg)$/,
+        include: APP_PATH,
+        loader: "url?limit=25000"
       }
+
+      // Fonts?
     ],
 
     plugins: [

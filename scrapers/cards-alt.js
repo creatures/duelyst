@@ -9,15 +9,11 @@ function getCardsJSON() {
   var data = {"cards": {}}
 
   for (i = 0; i < cards.length; i++) {
-    attributes = cards[i].attributes
+    var attributes = cards[i].attributes
 
-    // Skip hidden cards
+    // Skip Hidden, Token, and cards that belong to "Training Teacher"
     if (attributes.isHiddenInCollection) { continue }
-
-    // Skip tokens
     if (attributes.rarityName === "Token") { continue }
-
-    // Skip cards that belong to the training teacher
     if (attributes.factionId === 200) { continue }
 
     // Card
@@ -25,13 +21,37 @@ function getCardsJSON() {
     card.animations = {}
     card.keywords = []
 
+    // Basic
     card.id = attributes.id
     card.name = attributes.name
     card.mana = attributes.manaCost
 
     // Animations
-    // No need yet, still need to figure out how to get assets
-    // attributes._baseAnimResource
+    // Artifacts [active, idle]
+    // Spells [active, idle]
+    // Units [attack, breathing, damage, death, idle, walk]
+    // RSX is an object that holds all resources, searchable by key
+    var animations = attributes.card._baseAnimResource
+    var animationList = ["active", "attack", "breathing", "damage", "death", "idle", "walk"]
+    var animationProps = Object.keys(animations)
+    var sourceImage = ""
+    var sourcePlist = ""
+    for (var ii = 0; ii < animationProps.length; ii++) {
+      var animationProp = animationProps[ii]
+      if (animationList.indexOf(animationProp) >= 0) {
+        var animationId = animations[animationProp]
+        var resource = RSX[animationId]
+        card.animations[animationProp] = {
+          name: resource.name,
+          frameDelay: resource.frameDelay,
+          framePrefix: resource.framePrefix
+        }
+        sourceImage = resource.img
+        sourcePlist = resource.plist
+      }
+    }
+    card.animations.sourceImage = sourceImage
+    card.animations.sourcePlist = sourcePlist
 
     // Category
     if (attributes.isArtifact) { card.category = "artifact" }

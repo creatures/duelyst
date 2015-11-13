@@ -50,7 +50,9 @@ export default class App extends Component {
           </div>
         </div>
         <div className="card-sprite">
-
+          <div className="window">
+            <img className="sprite" src={card.animations.sourceImage} />
+          </div>
         </div>
         <div className="card-caption">
           <h5 className="name">

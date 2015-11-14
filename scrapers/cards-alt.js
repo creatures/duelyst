@@ -26,33 +26,6 @@ function getCardsJSON() {
     card.name = attributes.name
     card.mana = attributes.manaCost
 
-    // Animations
-    // Artifacts [active, idle]
-    // Spells [active, idle]
-    // Units [attack, breathing, damage, death, idle, walk]
-    // RSX is an object that holds all resources, searchable by key
-    var animations = attributes.card._baseAnimResource
-    var animationList = ["active", "attack", "breathing", "damage", "death", "idle", "walk"]
-    var animationProps = Object.keys(animations)
-    var sourceImage = ""
-    var sourcePlist = ""
-    for (var ii = 0; ii < animationProps.length; ii++) {
-      var animationProp = animationProps[ii]
-      if (animationList.indexOf(animationProp) >= 0) {
-        var animationId = animations[animationProp]
-        var resource = RSX[animationId]
-        card.animations[animationProp] = {
-          name: resource.name,
-          frameDelay: resource.frameDelay,
-          framePrefix: resource.framePrefix
-        }
-        sourceImage = resource.img
-        sourcePlist = resource.plist
-      }
-    }
-    card.animations.sourceImage = sourceImage
-    card.animations.sourcePlist = sourcePlist
-
     // Category
     if (attributes.isArtifact) { card.category = "artifact" }
     if (attributes.isSpell) { card.category = "spell" }
@@ -98,7 +71,6 @@ function getCardsJSON() {
     } else {
       card.type = "Minion"
     }
-
 
     // Unit
     card.attack = attributes.atk

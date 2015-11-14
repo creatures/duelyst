@@ -51,7 +51,7 @@ export default class App extends Component {
         </div>
         <div className="card-sprite">
           <div className="window">
-            <img className="sprite" src={card.animations.sourceImage} />
+            <img className="sprite" src={require("../images/avatar/" + card.id + ".png")} />
           </div>
         </div>
         <div className="card-caption">

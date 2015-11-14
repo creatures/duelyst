@@ -35,7 +35,7 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         include: APP_PATH,
-        loader: "url?limit=25000"
+        loader: "url-loader?limit=25000"
       }
 
       // Fonts?

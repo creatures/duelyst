@@ -1,0 +1,237 @@
+// ---------------------------------------------------------------------------
+
+.card--grid
+  width 976px
+  // display flex
+  // flex 1
+  // flex-flow flow wrap
+  // -webkit-box-pack center
+  // justify-content center
+  // align-items center
+  // align-content center
+  margin 0 auto
+  .card--detail
+    float left
+    margin 10px
+
+
+// ---------------------------------------------------------------------------
+
+.card--detail
+  position relative
+  width 224px
+  height 294px
+  padding 8px 6px
+  font-family Lato
+  -webkit-font-smoothing subpixel-antialiased
+
+  .background
+    position absolute
+    top 0
+    left 0
+    right 0
+    bottom 0
+    background-position 50%
+    background-repeat no-repeat
+    background-size cover
+
+  .glow
+    position absolute
+    top 1%
+    left 1.5%
+    width 98%
+    height 96%
+    border-radius 7px
+    box-shadow 0 0 10px #000
+    transition box-shadow .25s
+
+  .card-header
+    display flex
+    flex-flow row nowrap
+    -webkit-box-pack justify
+    justify-content space-between
+    user-select none
+
+  .mana-cost
+    position absolute
+    left -15px
+    top -12px
+    width 62px
+    height 69px
+    font-size 22px
+    font-weight bold
+    color $txt-blue
+    line-height 69px
+    text-align center
+    text-shadow 0 0 10px rgba(164,255,255,.5)
+    background-image url(../images/card/bg-mana-cost.png)
+    background-position 50%
+    background-repeat no-repeat
+    background-size cover
+    span
+      display inline-block
+      margin-left -1px
+
+  .card-sprite
+    position relative
+    width 120px
+    height 120px
+    margin -20px auto 2px
+
+  .window
+    position absolute
+    top auto
+    bottom -20px
+    left 50%
+    width 160px
+    height 160px
+    margin -80px 0 0 -80px
+    img
+      position absolute
+      bottom 0
+      left 50%
+      image-rendering pixelated
+      transform translateX(-50%)
+
+  .card-caption
+    position relative
+    height 75px
+    text-align center
+    text-transform uppercase
+    user-select none
+
+  .name
+    min-height 20px
+    margin -5px 0 6px 0
+    color $txt-white
+    font-size 14px
+    font-weight normal
+    line-height 19px
+
+  .type
+    margin-top 5px
+    margin-bottom 0
+    color $txt-teal
+    font-size 12px
+    font-weight 300
+    line-height 0
+
+  .rarity
+    position absolute
+    display block
+    width 100%
+    height 0
+    margin-top -8px
+    font-size 9px
+    line-height 9px
+    text-indent 9999px
+    text-transform uppercase
+
+  .rarity::after
+    position absolute
+    top 15px
+    left 102px
+    display block
+    width 42px
+    height 42px
+    margin-left -16px
+    content " "
+
+  .rarity.is-common:after
+    background url(../images/card/rarity-common.png)
+
+  .rarity.is-rare:after
+    background url(../images/card/rarity-rare.png)
+
+  .rarity.is-epic:after
+    background url(../images/card/rarity-epic.png)
+
+  .rarity.is-legendary:after
+    background url(../images/card/rarity-legendary.png)
+
+  .stats
+    position absolute
+    left 0
+    right 0
+    top 43px
+    display flex
+    flew-flow row nowrap
+    -webkit-box-pack justify
+    justify-content space-between
+    padding 0
+    margin 0 auto
+    width 185px
+    list-style-type none
+
+  .stat
+    position relative
+    margin 0
+    width 65px
+    height 57px
+    font-size 24px
+    font-weight 700
+    line-height 57px
+    text-shadow 0 0 10px rgba(233,63,51,.5)
+
+  .stat.is-attack
+    color $txt-yellow-light
+
+  .stat.is-hp
+    color $txt-red
+
+  .description
+    position absolute
+    display flex
+    flex-flow column nowrap
+    -webkit-box-align center
+    align-items center
+    -webkit-box-pack center
+    justify-content center
+    top 200px
+    left 0
+    right 0
+    width 190px
+    height 70px
+    margin 0 auto
+    color $txt-teal
+    font-size 13px
+    font-weight 300
+    text-align center
+    overflow hidden
+    user-select none
+
+// Variants
+
+.card--detail.is-artifact
+  .background
+    background-image url(../images/card/bg-artifact-neutral.png)
+  .type
+    color $txt-yellow-medium
+  .window
+    bottom: -8px
+
+.card--detail.is-spell
+  .background
+    background-image url(../images/card/bg-spell-neutral.png)
+  .window
+    bottom: -8px
+
+.card--detail.is-unit
+  .background
+    background-image url(../images/card/bg-unit-neutral.png)
+    &:after
+      position absolute
+      display block
+      width 181px
+      height 58px
+      top 148px
+      left 23px
+      background-image url(../images/card/bg-stats.png)
+      background-repeat no-repeat
+      background-size cover
+      content " "
+
+
+.card--detail:hover
+  .glow
+    box-shadow 0 0 20px #0ff

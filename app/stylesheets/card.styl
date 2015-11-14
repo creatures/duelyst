@@ -68,12 +68,15 @@
     background-position 50%
     background-repeat no-repeat
     background-size cover
+    span
+      display inline-block
+      margin-left -1px
 
   .card-sprite
     position relative
-    width 100px
-    height 100px
-    margin 0 auto
+    width 120px
+    height 120px
+    margin -20px auto 2px
 
   .window
     position absolute
@@ -83,14 +86,12 @@
     width 160px
     height 160px
     margin -80px 0 0 -80px
-    overflow: hidden
     img
       position absolute
       bottom 0
-      left 0
+      left 50%
       image-rendering pixelated
-      transform scale(2)
-      transform-origin bottom left
+      transform translateX(-50%)
 
   .card-caption
     position relative
@@ -152,7 +153,7 @@
     position absolute
     left 0
     right 0
-    top 45px
+    top 43px
     display flex
     flew-flow row nowrap
     -webkit-box-pack justify
@@ -206,16 +207,14 @@
     background-image url(../images/card/bg-artifact-neutral.png)
   .type
     color $txt-yellow-medium
-  .window img
-    width 48px
-    height 48px
+  .window
+    bottom: -8px
 
 .card--detail.is-spell
   .background
     background-image url(../images/card/bg-spell-neutral.png)
-  .window img
-    width 48px
-    height 48px
+  .window
+    bottom: -8px
 
 .card--detail.is-unit
   .background
@@ -231,9 +230,6 @@
       background-repeat no-repeat
       background-size cover
       content " "
-  .window img
-    width 80px
-    height 80px
 
 
 .card--detail:hover

@@ -22,12 +22,15 @@ export default class App extends Component {
         <div className="layout--header">
           <h1>Duelyst</h1>
         </div>
-        <section>
+        <section className="layout--nav">
           <div className="faction--list">
             {Object.keys(this.state.factions).map(this.renderFaction)}
           </div>
+          <aside className="copy--displaying">
+            Displaying {Object.keys(this.state.cards).length} cards
+          </aside>
         </section>
-        <section>
+        <section className="layout--body">
           <div className="card--grid">
             {Object.keys(this.state.cards).map(this.renderCard)}
           </div>
@@ -46,7 +49,9 @@ export default class App extends Component {
         <div className="background" />
         <div className="card-header">
           <div className="mana-cost">
-            {card.mana}
+            <span>
+              {card.mana}
+            </span>
           </div>
         </div>
         <div className="card-sprite">

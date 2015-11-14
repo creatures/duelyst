@@ -1,4 +1,20 @@
-// Enter into the console to retrieve stringified JSON cards
+//
+// OVERVIEW
+//
+// This scraper access game data through the GameDataManger. This object
+// appears to hold data that has already been assembled through other means
+// as it does not appear to contain hidden cards, factions, etc.
+//
+// ---------------------------------------------------------------------------
+//
+// USAGE:
+//
+// 1. Visit http://beta.duelyst.com and open the console.
+// 2. Paste this file into the console and hit enter.
+// 3. The assets data will automatically be added to your paste buffer.
+// 4. Open the app/data/assets.js file and paste into module.exports.
+//
+// ---------------------------------------------------------------------------
 
 function getAssetsJSON() {
 
@@ -42,8 +58,10 @@ function getAssetsJSON() {
     data.cards[card["id"]] = card
 
     console.log("-------------------------------")
+
     var txtPlist = (card.plist) ? "plist [x] " : ""
     var txtSprite = (card.sprite) ? "sprite [x] " : ""
+
     console.log(card.name + " - " + txtPlist + " " + txtSprite)
     console.log(cards[i])
     console.log(card)

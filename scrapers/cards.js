@@ -1,79 +1,107 @@
-// Enter into the console to retrieve stringified JSON cards
+//
+// OVERVIEW
+//
+// This scraper access game data through the GameDataManger. This object
+// appears to hold data that has already been assembled through other means
+// as it does not appear to contain hidden cards, factions, etc.
+//
+// ---------------------------------------------------------------------------
+//
+// USAGE:
+//
+// 1. Visit http://beta.duelyst.com and open the console.
+// 2. Paste this file into the console and hit enter.
+// 3. The cards data will automatically be added to your paste buffer.
+// 4. Open the app/data/cards.js file and paste into module.exports.
+//
+// ---------------------------------------------------------------------------
 
-function GetCardsJSON() {
+function getCardsJSON() {
 
   console.log("-------------------------------")
   console.log("CARDS")
 
-  var cards = SDK.CardFactory.getAllCards(GameSession.getInstance())
+  var cards = GameDataManager.getInstance().cardsCollection.models
   var data = {"cards": {}}
 
   for (i = 0; i < cards.length; i++) {
+    var attributes = cards[i].attributes
+
+    // Skip Unavailable, Hidden, Token, Training Teacher
+    if (attributes.isAvailable === false) { continue }
+    if (attributes.isHiddenInCollection) { continue }
+    if (attributes.rarityName === "Token") { continue }
+    if (attributes.factionId === 200) { continue }
+
+    // Card
     card = {}
     card.animations = {}
-    card.modifiers = {}
+    card.keywords = []
 
-    card.id = cards[i].id
-    card.name = cards[i].name
-    card.mana = cards[i].manaCost
-    card.attack = cards[i].atk
-    card.hp = cards[i].maxHP
-    card.isGeneral = cards[i].isGeneral
-    card.factionId = cards[i].factionId
-    card.isHidden = !!cards[i]._isHiddenInCollection
+    // Basic
+    card.id = attributes.id
+    card.name = attributes.name
+    card.mana = attributes.manaCost
 
-    // Card Type
-    // SDK.CardType.Artifact, SDK.CardType.Spell, SDK.CardType.Unit
+    // Category
+    if (attributes.isArtifact) { card.category = "artifact" }
+    if (attributes.isSpell) { card.category = "spell" }
+    if (attributes.isTile) { card.category = "tile" }
+    if (attributes.isUnit) { card.category = "unit" }
 
     // Description
     // Note: Spells have a description, Units do not
-    card.description = cards[i]._description
+    card.description = attributes.description
 
-    // Races
-    // Golem, Arcanyst, Dervish, etc.
-    if (cards[i].raceId) {
-      card.raceId = cards[i].raceId
-      card.race = SDK.RaceFactory.raceForIdentifier(card.raceId)
+    // Faction
+    card.faction = attributes.factionName
+    card.factionId = attributes.factionId
+    card.factionSlug = card.faction.split(" ")[0].toLowerCase()
+
+    // Keywords
+    var keywords = attributes.keywordDescriptions
+    if (keywords.length) {
+      for (var ii = 0; ii < keywords.length; ii++) {
+        card.keywords[ii] = keywords[ii].name
+      }
     }
+
+    // Race
+    card.race = attributes.raceName
 
     // Rarity
-    // SDK.RarityFactory.getAllRarities()
-    // 0 - Basic, 1 - Common, 2 - Rare, 3 - Epic, 4 - Legendary, 5 - Token
-    card.rarityId = cards[i].rarityId
+    card.rarity = attributes.rarityName
+    card.rarityId = attributes.rarityId
 
-    // Modifiers
-    // var modifiers = cards[i].modifiersContextObjects
-    // for (ii = 0; ii < modifiers.length; ii++) {
-    //   card.modifiers
-    // }
-    //
-    // No Love
-    // SDK.ModifierFactory.modifierForContextObject("ModifierSummonWatchNearbyApplyModifiersOncePerTurn")
+    // Search
+    card.searchableContent = attributes.searchableContent
 
-    if (cards[i]._baseAnimResource) {
-      // Spells: active, idle
-      // Units: attack, breathing, damage, death, idle, walk
-      // card.animations.active = cards[i]._baseAnimResource.active
-      // card.animations.attack = cards[i]._baseAnimResource.attack
-      // card.animations.breathing = cards[i]._baseAnimResource.breathing
-      // card.animations.damage = cards[i]._baseAnimResource.damage
-      // card.animations.death = cards[i]._baseAnimResource.death
-      // card.animations.idle = cards[i]._baseAnimResource.idle
-      // card.animations.walk = cards[i]._baseAnimResource.walk
+    // Type
+    if (attributes.raceName) {
+      card.type = attributes.raceName
+    } else if (attributes.isGeneral) {
+      card.type = "General"
+    } else if (attributes.isArtifact) {
+      card.type = "Artifact"
+    } else if (attributes.isSpell) {
+      card.type = "Spell"
+    } else {
+      card.type = "Minion"
     }
 
-    // Damage Amount
-    // Returns the number of damage done by spells, could be useful someday
-    // card.damageAmount = cards[i].damageAmount
+    // Unit
+    card.attack = attributes.atk
+    card.hp = attributes.hp
+    card.isGeneral = attributes.isGeneral
 
+    // Visibility
+    card.isHidden = attributes.isHiddenInCollection
 
+    // Save
     data.cards[card["id"]] = card
 
     console.log("-------------------------------")
-    console.log(card.name + " - " + "Card Type" + " - " + card.id)
-    console.log("Artifact: " + SDK.CardType.getIsArtifactCardType(cards[i]))
-    console.log("Spell: " + SDK.CardType.getIsSpellCardType(cards[i]))
-    console.log("Unit: " + SDK.CardType.getIsUnitCardType(cards[i]))
+    console.log(card.name + " - " + card.category + " - " + card.id)
     console.log(cards[i])
     console.log(card)
 
@@ -84,4 +112,5 @@ function GetCardsJSON() {
 
   return JSON.stringify(data);
 }
-copy(GetCardsJSON());
+
+copy(getCardsJSON());

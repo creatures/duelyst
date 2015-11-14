@@ -11,7 +11,8 @@ function getCardsJSON() {
   for (i = 0; i < cards.length; i++) {
     var attributes = cards[i].attributes
 
-    // Skip Hidden, Token, and cards that belong to "Training Teacher"
+    // Skip Unavailable, Hidden, Token, Training Teacher
+    if (attributes.isAvailable === false) { continue }
     if (attributes.isHiddenInCollection) { continue }
     if (attributes.rarityName === "Token") { continue }
     if (attributes.factionId === 200) { continue }

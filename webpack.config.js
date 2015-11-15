@@ -30,7 +30,7 @@ module.exports = {
       {
         test: /\.styl$/,
         include: APP_PATH,
-        loader: "style-loader!css-loader!stylus-loader"
+        loaders: ["style-loader", "css-loader", "stylus-loader"]
       },
       {
         test: /\.(png|jpg)$/,

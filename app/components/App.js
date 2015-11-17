@@ -1,6 +1,13 @@
+// ---------------------------------------------------------------------------
+
 import React, { Component } from "react"
 import Cards from "../data/cards"
 import Factions from "../data/factions"
+
+import Header from "./Header"
+
+
+// ---------------------------------------------------------------------------
 
 export default class App extends Component {
 
@@ -19,22 +26,14 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <div className="layout--header">
-          <h1>Duelyst</h1>
+        <Header cards={this.state.cards} factions={this.state.factions} />
+        <div>
+          <section className="layout--body">
+            <div className="card--grid">
+              {Object.keys(this.state.cards).map(this.renderCard)}
+            </div>
+          </section>
         </div>
-        <section className="layout--nav">
-          <div className="faction--list">
-            {Object.keys(this.state.factions).map(this.renderFaction)}
-          </div>
-          <aside className="copy--displaying">
-            Displaying {Object.keys(this.state.cards).length} cards
-          </aside>
-        </section>
-        <section className="layout--body">
-          <div className="card--grid">
-            {Object.keys(this.state.cards).map(this.renderCard)}
-          </div>
-        </section>
       </div>
     )
   }

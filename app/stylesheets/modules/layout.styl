@@ -3,15 +3,37 @@
 .layout--header
   width 976px
   margin 0 auto 20px
-  padding 10px 9px 0 9px
+  padding 10px 10px 0 8px
+  clearfix()
   h1
+    float left
     margin 0
     color $txt-white
     font-family Lato
     font-size 28px
     font-weight 300
     text-transform uppercase
-
+  aside
+    float right
+    a
+      position relative
+      top 10px
+      padding 7px 12px
+      color rgba($txt-teal, 0.5)
+      // color rgba($txt-teal, 0.8)
+      font-family Lato
+      font-size 12px
+      font-weight 300
+      text-transform uppercase
+      // background rgba(0, 0, 0, 0.5)
+      // background #26c9ff
+      border 1px solid rgba($txt-teal, 0.3)
+      border-radius 20px
+      cursor pointer
+      transition border-color .2s, color .2s
+      &:hover
+        color $txt-white
+        border-color rgba($txt-teal, 0.7)
 
 // ---------------------------------------------------------------------------
 

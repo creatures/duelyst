@@ -17,6 +17,9 @@ export default class Header extends Component {
       <header>
         <div className="layout--header">
           <h1>Duelyst</h1>
+          <aside>
+            <a>Create a Deck</a>
+          </aside>
         </div>
         <nav className="layout--nav">
           <div className="faction--list">
